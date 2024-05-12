@@ -9,7 +9,7 @@ This should be a button in the InvokeAI canvas, right?
 Now that we have a node that works, it will be easier to make that button.
 """
 
-from typing import Literal, Optional
+from typing import Literal
 from PIL import Image
 
 from invokeai.invocation_api import (
@@ -36,9 +36,9 @@ RotationLiteral = Literal[ "CW 270°", "CW 180°", "CW 90°", "0°", "CCW 90°",
 class RotateImageInvocation(BaseInvocation):
     """Rotate and/or Flip an Image"""
     input_image: ImageField = InputField(description="Input image")
-    rotation: Optional[RotationLiteral] = InputField(default="0°", description="Rotation (in degrees)")
-    flip_horizontal: Optional[bool] = InputField(default=False, description="Whether to horizontally flip")
-    flip_vertical: Optional[bool] = InputField(default=False, description="Whether to vertically flip")
+    rotation: RotationLiteral = InputField(default="0°", description="Rotation (in degrees)")
+    flip_horizontal: bool = InputField(default=False, description="Whether to horizontally flip")
+    flip_vertical: bool = InputField(default=False, description="Whether to vertically flip")
 
     def rotate_image(self, image: Image.Image, rotation: str, flip_horizontal: bool, flip_vertical: bool) -> Image.Image:
         # Convert the rotation to an integer
